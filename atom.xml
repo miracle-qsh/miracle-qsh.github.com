@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://miracle-qsh.github.io/"/>
-  <updated>2020-01-14T03:13:47.411Z</updated>
+  <updated>2020-01-14T11:10:44.476Z</updated>
   <id>http://miracle-qsh.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>面试学习资料汇总</title>
+    <link href="http://miracle-qsh.github.io/2020/01/14/%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%E6%B1%87%E6%80%BB/"/>
+    <id>http://miracle-qsh.github.io/2020/01/14/%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%E6%B1%87%E6%80%BB/</id>
+    <published>2020-01-14T11:09:14.235Z</published>
+    <updated>2020-01-14T11:10:44.476Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>用于记录准备面试过程中各类学习资料</p><a id="more"></a><h2 id="面试学习资料汇总"><a href="#面试学习资料汇总" class="headerlink" title="面试学习资料汇总"></a>面试学习资料汇总</h2><h3 id="CyC-2018-笔记"><a href="#CyC-2018-笔记" class="headerlink" title="CyC 2018 笔记"></a>CyC 2018 笔记</h3><p><a href="https://cyc2018.github.io/CS-Notes/#/" target="_blank" rel="noopener">传送链接</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;用于记录准备面试过程中各类学习资料&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="面试题" scheme="http://miracle-qsh.github.io/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+    
+    
+      <category term="面试" scheme="http://miracle-qsh.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="笔记" scheme="http://miracle-qsh.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="整理" scheme="http://miracle-qsh.github.io/tags/%E6%95%B4%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer&amp;&amp;Leetcode源码</title>
@@ -35,36 +62,9 @@
       <category term="算法" scheme="http://miracle-qsh.github.io/categories/%E7%AE%97%E6%B3%95/"/>
     
     
+      <category term="面试" scheme="http://miracle-qsh.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
       <category term="算法" scheme="http://miracle-qsh.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="面试" scheme="http://miracle-qsh.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>腾讯面试题汇总</title>
-    <link href="http://miracle-qsh.github.io/2020/01/13/%E8%85%BE%E8%AE%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/"/>
-    <id>http://miracle-qsh.github.io/2020/01/13/%E8%85%BE%E8%AE%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/</id>
-    <published>2020-01-13T12:58:42.361Z</published>
-    <updated>2020-01-13T13:04:12.198Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>用与记录整理腾讯面试题目</p><a id="more"></a><h3 id="回馈牛客！腾讯PCG实习面经！"><a href="#回馈牛客！腾讯PCG实习面经！" class="headerlink" title="回馈牛客！腾讯PCG实习面经！"></a><a href="https://www.nowcoder.com/discuss/360809" target="_blank" rel="noopener">回馈牛客！腾讯PCG实习面经！</a></h3><h4 id="红黑树的性质"><a href="#红黑树的性质" class="headerlink" title="红黑树的性质"></a>红黑树的性质</h4><p><a href="https://www.jianshu.com/p/e136ec79235c" target="_blank" rel="noopener">30张图带你彻底理解红黑树</a></p><h4 id="poll-与-epoll-的区别"><a href="#poll-与-epoll-的区别" class="headerlink" title="poll 与 epoll 的区别"></a>poll 与 epoll 的区别</h4><h4 id="new-和-malloc-区别"><a href="#new-和-malloc-区别" class="headerlink" title="new 和 malloc 区别"></a>new 和 malloc 区别</h4><p><a href="https://www.cnblogs.com/ywliao/articles/8116622.html" target="_blank" rel="noopener">c++ new 与malloc有什么区别</a></p><h4 id="TCP的三次握手和四次挥手"><a href="#TCP的三次握手和四次挥手" class="headerlink" title="TCP的三次握手和四次挥手"></a>TCP的三次握手和四次挥手</h4><p><a href="https://www.cnblogs.com/Kiven5197/p/8890626.html" target="_blank" rel="noopener">TCP的三次握手和四次挥手，为什么？</a></p><h4 id="TCP怎么保证可靠性"><a href="#TCP怎么保证可靠性" class="headerlink" title="TCP怎么保证可靠性"></a>TCP怎么保证可靠性</h4><p><a href="https://www.nowcoder.com/tutorial/93/e1b14ab2b40a4ef98d9e55830eb48d66" target="_blank" rel="noopener">TCP怎么保证可靠性</a></p><h4 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h4><p><a href="https://blog.csdn.net/yu876876/article/details/85078260" target="_blank" rel="noopener">C++十大设计模式（易懂）</a></p><h4 id="拓扑还原"><a href="#拓扑还原" class="headerlink" title="拓扑还原"></a>拓扑还原</h4><h4 id="路由协议"><a href="#路由协议" class="headerlink" title="路由协议"></a>路由协议</h4><p><a href="https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/202634?fr=aladdin" target="_blank" rel="noopener">路由协议</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;用与记录整理腾讯面试题目&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="面试题" scheme="http://miracle-qsh.github.io/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
-    
-    
-      <category term="面试" scheme="http://miracle-qsh.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
-      <category term="笔记" scheme="http://miracle-qsh.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
-    
-      <category term="整理" scheme="http://miracle-qsh.github.io/tags/%E6%95%B4%E7%90%86/"/>
     
   </entry>
   
