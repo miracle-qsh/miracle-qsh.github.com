@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://miracle-qsh.github.io/"/>
-  <updated>2020-01-14T12:33:01.098Z</updated>
+  <updated>2020-01-31T06:26:21.304Z</updated>
   <id>http://miracle-qsh.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C语言知识回顾</title>
+    <link href="http://miracle-qsh.github.io/2020/01/31/C%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE/"/>
+    <id>http://miracle-qsh.github.io/2020/01/31/C%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE/</id>
+    <published>2020-01-31T06:22:11.474Z</published>
+    <updated>2020-01-31T06:26:21.304Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p> 用于回顾C语言中比较复杂与困难的知识点</p><a id="more"></a><h3 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h3><p>程序运行期间，每个函数都会占用一段连续内存空间，函数名为入口地址，指向函数入口地址的指针变量成为“函数指针”</p><h3 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h3><p>cmd窗口中以空格隔开的一行命令为命令行参数，例如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">copy file1.txt file2.txt</span></pre></td></tr></table></figure><p>其中“copy”，“file1.txt”，“file2.txt”为命令行参数</p><p>在C程序中表现为</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 函数体</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure><p>其中argc为命令行参数个数，*argv[]为参数列表（字符串）</p><h3 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h3><table><thead><tr><th>运算符</th><th>功能</th></tr></thead><tbody><tr><td>&amp;</td><td>按位与（双目）</td></tr><tr><td>|</td><td>按位或（双目）</td></tr><tr><td>^</td><td>按位异或（双目）</td></tr><tr><td>~</td><td>按位取反（单目）</td></tr><tr><td>&lt;&lt;</td><td>左移（双目）</td></tr><tr><td>&gt;&gt;</td><td>右移（双目）</td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt; 用于回顾C语言中比较复杂与困难的知识点&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="C/C++" scheme="http://miracle-qsh.github.io/categories/C-C/"/>
+    
+    
+      <category term="C/C++" scheme="http://miracle-qsh.github.io/tags/C-C/"/>
+    
+      <category term="面试" scheme="http://miracle-qsh.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title>面试学习资料汇总</title>
@@ -62,9 +87,9 @@
       <category term="算法" scheme="http://miracle-qsh.github.io/categories/%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://miracle-qsh.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="面试" scheme="http://miracle-qsh.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="算法" scheme="http://miracle-qsh.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   

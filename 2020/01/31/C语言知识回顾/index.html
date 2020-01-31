@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>面试学习资料汇总 | QSH&#39;s blog</title>
+  <title>C语言知识回顾 | QSH&#39;s blog</title>
   
   
   <meta name="description" content="心如花木，向阳而生">
@@ -220,8 +220,8 @@
         
   
     <h1 class="title">
-      <a href="/2020/01/14/%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%E6%B1%87%E6%80%BB/">
-        面试学习资料汇总
+      <a href="/2020/01/31/C%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE/">
+        C语言知识回顾
       </a>
     </h1>
   
@@ -252,7 +252,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2020-01-14</p>
+    <p>2020-01-31</p>
   </a>
 </div>
 
@@ -262,9 +262,9 @@
             
   
   <div class='new-meta-item category'>
-    <a href='/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/' rel="nofollow">
+    <a href='/categories/C-C/' rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>面试题</p>
+      <p>C/C++</p>
     </a>
   </div>
 
@@ -310,11 +310,49 @@
 
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
-        <p>用于记录准备面试过程中各类学习资料</p>
+        <p> 用于回顾C语言中比较复杂与困难的知识点</p>
 <a id="more"></a>
+<h3 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h3><p>程序运行期间，每个函数都会占用一段连续内存空间，函数名为入口地址，指向函数入口地址的指针变量成为“函数指针”</p>
+<h3 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h3><p>cmd窗口中以空格隔开的一行命令为命令行参数，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">copy file1.txt file2.txt</span></pre></td></tr></table></figure>
 
-<h2 id="面试学习资料汇总"><a href="#面试学习资料汇总" class="headerlink" title="面试学习资料汇总"></a>面试学习资料汇总</h2><h3 id="CyC-2018-笔记"><a href="#CyC-2018-笔记" class="headerlink" title="CyC 2018 笔记"></a>CyC 2018 笔记</h3><p><a href="https://cyc2018.github.io/CS-Notes/#/" target="_blank" rel="noopener">传送链接</a></p>
-<h3 id="牛客面试题汇总"><a href="#牛客面试题汇总" class="headerlink" title="牛客面试题汇总"></a>牛客面试题汇总</h3><p><a href="https://www.nowcoder.com/tutorial/93/8ba2828006dd42879f3a9029eabde9f1" target="_blank" rel="noopener">传送链接</a></p>
+<p>其中“copy”，“file1.txt”，“file2.txt”为命令行参数</p>
+<p>在C程序中表现为</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 函数体</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>其中argc为命令行参数个数，*argv[]为参数列表（字符串）</p>
+<h3 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;</td>
+<td>按位与（双目）</td>
+</tr>
+<tr>
+<td>|</td>
+<td>按位或（双目）</td>
+</tr>
+<tr>
+<td>^</td>
+<td>按位异或（双目）</td>
+</tr>
+<tr>
+<td>~</td>
+<td>按位取反（单目）</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>左移（双目）</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>右移（双目）</td>
+</tr>
+</tbody></table>
 
       </div>
       
@@ -327,10 +365,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-14T20:33:01+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-31T14:26:21+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2020年1月14日</p>
+    <p>更新于 2020年1月31日</p>
   </a>
 </div>
 
@@ -339,7 +377,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E9%9D%A2%E8%AF%95/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>面试</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E7%AC%94%E8%AE%B0/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>笔记</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%95%B4%E7%90%86/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>整理</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/C-C/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>C/C++</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E9%9D%A2%E8%AF%95/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>面试</p></a></div>
 
 
         
@@ -357,40 +395,21 @@
       
           <div class="prev-next">
               
-                  <section class="prev">
-                      <span class="art-item-left">
-                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
-                          <h4>
-                              <a href="/2020/01/31/C%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE/" rel="prev" title="C语言知识回顾">
-                                
-                                    C语言知识回顾
-                                
-                              </a>
-                          </h4>
-                          
-                              
-                              <h6 class="tags">
-                                  <a class="tag" href="/tags/C-C/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> C/C++</a> <a class="tag" href="/tags/%E9%9D%A2%E8%AF%95/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 面试</a>
-                              </h6>
-                          
-                      </span>
-                  </section>
-              
               
                   <section class="next">
                       <span class="art-item-right" aria-hidden="true">
                           <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                           <h4>
-                              <a href="/2020/01/14/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" rel="prev" title="剑指offer&amp;&amp;Leetcode源码">
+                              <a href="/2020/01/14/%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%E6%B1%87%E6%80%BB/" rel="prev" title="面试学习资料汇总">
                                   
-                                      剑指offer&amp;&amp;Leetcode源码
+                                      面试学习资料汇总
                                   
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/%E9%9D%A2%E8%AF%95/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 面试</a> <a class="tag" href="/tags/%E7%AE%97%E6%B3%95/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 算法</a>
+                                  <a class="tag" href="/tags/%E9%9D%A2%E8%AF%95/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 面试</a> <a class="tag" href="/tags/%E7%AC%94%E8%AE%B0/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 笔记</a> <a class="tag" href="/tags/%E6%95%B4%E7%90%86/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 整理</a>
                               </h6>
                           
                       </span>
@@ -420,7 +439,7 @@
 
   <script>
     window.subData = {
-      title: '面试学习资料汇总',
+      title: 'C语言知识回顾',
       tools: true
     }
   </script>
@@ -542,7 +561,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#面试学习资料汇总"><span class="toc-text">面试学习资料汇总</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CyC-2018-笔记"><span class="toc-text">CyC 2018 笔记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#牛客面试题汇总"><span class="toc-text">牛客面试题汇总</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数指针"><span class="toc-text">函数指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行参数"><span class="toc-text">命令行参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位运算"><span class="toc-text">位运算</span></a></li></ol>
     </div>
   </section>
 
