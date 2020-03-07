@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="心如花木，向阳而生" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    堆与哈夫曼树 |  QSH&#39;s blog
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="QSH's blog" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-堆与哈夫曼树" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  堆与哈夫曼树
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/07/%E5%A0%86%E4%B8%8E%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91/" class="article-date">
+  <time datetime="2020-03-07T08:52:19.131Z" itemprop="datePublished">2020-03-07</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.8k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">10分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>堆与哈夫曼树的总结</p>
+<a id="more"></a>
+<h1 id="堆与哈夫曼树"><a href="#堆与哈夫曼树" class="headerlink" title="堆与哈夫曼树"></a>堆与哈夫曼树</h1><h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><h3 id="前置知识-5min"><a href="#前置知识-5min" class="headerlink" title="前置知识(5min)"></a>前置知识(5min)</h3><h4 id="什么是二叉树"><a href="#什么是二叉树" class="headerlink" title="什么是二叉树"></a>什么是二叉树</h4><p><font color='red'>二叉树</font>是每个结点最多有<font color='red'>两个子树</font>的树结构</p>
+<h4 id="什么是满二叉树"><a href="#什么是满二叉树" class="headerlink" title="什么是满二叉树"></a>什么是满二叉树</h4><p>一个二叉树，如果<font color='red'>每一个层的结点数都达到最大值</font>，则这个二叉树就是<font color='red'>满二叉树</font></p>
+<h4 id="什么是完全二叉树"><a href="#什么是完全二叉树" class="headerlink" title="什么是完全二叉树"></a>什么是完全二叉树</h4><p>对于深度为K的，有n个结点的二叉树，当且仅当其<font color='red'>每一个结点</font>都与深度为K的<font color='red'>满二叉树</font>中编号从1至n的结点<font color='red'>一一对应</font>时称之为<font color='red'>完全二叉树</font></p>
+<p>用一张图可以较清楚的展示三者的区别</p>
+<p><img src="https://i.loli.net/2020/02/03/tm3eG8udaivQlF4.png" alt="tm3eG8udaivQlF4.png (1294×599)"></p>
+<h3 id="堆是什么-0-5min"><a href="#堆是什么-0-5min" class="headerlink" title="堆是什么(0.5min)"></a>堆是什么(0.5min)</h3><p>堆是计算机科学中的一类<font color='red'>数据结构</font></p>
+<h3 id="堆有什么特点-5min"><a href="#堆有什么特点-5min" class="headerlink" title="堆有什么特点(5min)"></a>堆有什么特点(5min)</h3><ul>
+<li><p>堆总是一颗<font color='red'>完全二叉树</font></p>
+</li>
+<li><p>堆中任意一个节点总是<font color='red'>不大于（或不小于）</font>其父节点的值</p>
+<p>[换言之，任意一个父节点的值一定大于等于（或小于等于）其所有子节点的值]</p>
+</li>
+</ul>
+<p>例如：</p>
+<p><img src="https://i.loli.net/2020/02/03/Am6osuZ578OSpJw.png" alt="img"></p>
+<p>上述完全二叉树中，任意一个节点的值一定大于其子节点的值</p>
+<p>7 &gt; 4 且 7 &gt; 6</p>
+<p>4 &gt; 1 且 4 &gt; 3</p>
+<p>6 &gt; 2 且 6 &gt; 5</p>
+<p>因此，这课完全二叉树就可以叫做堆</p>
+<p>补充：</p>
+<ul>
+<li>任意父节点大于等于子节点的堆叫<font color='red'>大顶堆</font></li>
+<li>任意父节点小于等于子节点的堆叫<font color='red'>小顶堆</font></li>
+</ul>
+<h3 id="堆有什么用-4-5min"><a href="#堆有什么用-4-5min" class="headerlink" title="堆有什么用(4.5min)"></a>堆有什么用(4.5min)</h3><p>基于堆的特点，我们发现堆可以：</p>
+<ul>
+<li><p>快速获取一些元素中<font color='red'>最大的值（或最小的值）</font>（通过查询根节点的值实现）</p>
+</li>
+<li><p>通过不断取出当前元素中最大（或最小）的值来实现<font color='red'>排序</font></p>
+<p>例如：</p>
+<p>现在有一个堆，堆中的元素有[6, 8, 4]，规定这是一个大顶堆。</p>
+<p>首先我们取出根节点，也就是 8，把 8 放入序列</p>
+<p><img src="https://i.loli.net/2020/02/03/GPg1tvuEezZ6xFC.png" alt="img"></p>
+<p>然后继续取出根节点，这时根节点是 6，把 6 放入序列</p>
+<p><img src="https://i.loli.net/2020/02/03/APjpCHFRwb1zyXd.png" alt="img"></p>
+<p>然后继续取出根节点，这时根节点是 4，把 4 放入序列</p>
+<p><img src="https://i.loli.net/2020/02/03/C82NbVRLS53AWxw.png" alt="img"></p>
+<p>排序完成，新序列为[8, 6, 4]。</p>
+</li>
+</ul>
+<h3 id="如何建立一个堆-15min"><a href="#如何建立一个堆-15min" class="headerlink" title="如何建立一个堆(15min)"></a>如何建立一个堆(15min)</h3><h4 id="完全二叉树的一个性质-7min"><a href="#完全二叉树的一个性质-7min" class="headerlink" title="完全二叉树的一个性质(7min)"></a>完全二叉树的一个性质(7min)</h4><p><img src="https://i.loli.net/2020/02/03/yjIdvWXGtTl719u.png" alt="img"></p>
+<p>上图是一颗完全二叉树，红字部分为给每个节点的标号，不难发现这样一个特点：</p>
+<p><font color='red'>对于任意一个节点，其左儿子标号=该节点标号*2，其右儿子标号=该节点标号 *2+1</font></p>
+<p>上图中：</p>
+<p>2 = 1 * 2， 3 = 1 * 2 + 1</p>
+<p>4 = 2 * 2， 5 = 2 * 2 + 1</p>
+<p>6 = 3 * 2， 7 = 3 * 2 + 1</p>
+<h4 id="用数组表示树-7-5min"><a href="#用数组表示树-7-5min" class="headerlink" title="用数组表示树(7.5min)"></a>用数组表示树(7.5min)</h4><p>基于上面得到的性质，<font color='red'>可以用一段数组来表示一颗完全二叉树</font>，而不再使用树形结构。</p>
+<p>只需按照标号顺序依次向数组中放入每个节点即可用数组表示完全二叉树</p>
+<p>例如在发现完全二叉树性质时使用的例子：</p>
+<p>其数组表示为：</p>
+<p>[7, 4, 6, 1, 3, 2, 5]</p>
+<p>其标号顺序为：</p>
+<p>[1, 2, 3, ,4, 5, 6, 7]</p>
+<h4 id="用数组建立一个空堆-0-5min"><a href="#用数组建立一个空堆-0-5min" class="headerlink" title="用数组建立一个空堆(0.5min)"></a>用数组建立一个空堆(0.5min)</h4><p>那么如果要建立一个空堆（即没有任何元素的堆），只需要声明一个数组即可，因为堆本质就是一颗特殊的完全二叉树。</p>
+<p>之后的讨论中默认新建的这个堆为大顶堆</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> heap[N];</span></pre></td></tr></table></figure>
+
+<h3 id="向堆中插入一个元素-15min"><a href="#向堆中插入一个元素-15min" class="headerlink" title="向堆中插入一个元素(15min)"></a>向堆中插入一个元素(15min)</h3><h4 id="在尾部添加新元素-3min"><a href="#在尾部添加新元素-3min" class="headerlink" title="在尾部添加新元素(3min)"></a>在尾部添加新元素(3min)</h4><p>现在向堆中插入第一个元素，我们只需要在数组的尾部插入即可，例如我们插入 4</p>
+<p>现在数组变为[4]，表现为树形结构为：</p>
+<p><img src="https://i.loli.net/2020/02/03/C82NbVRLS53AWxw.png" alt="img"></p>
+<p>然后，插入第二个元素 6</p>
+<p>现在数组变为[4, 6]，很显然</p>
+<p>6 是 4的子节点，但4 &lt; 6，不符合大顶堆的性质，那么也就是说：</p>
+<p>我们每次在数组尾部添加了一个新元素，需要重新维护数组中元素的顺序来保证堆的性质</p>
+<h4 id="调整位置以保证堆的性质-12min"><a href="#调整位置以保证堆的性质-12min" class="headerlink" title="调整位置以保证堆的性质(12min)"></a>调整位置以保证堆的性质(12min)</h4><p>首先，我们来看一个插入元素的过程动画</p>
+<p><img src="https://i.loli.net/2020/02/03/Yqw6G7uTOKli8cf.gif" alt="img"></p>
+<p>在这个动画中，我们可以观察到，我们在堆的尾部添加了一个元素这个元素是不符合大顶堆的性质的，于是我们会对元素的位置进行调整。</p>
+<p>可以比较清楚的发现，调整过程中，新插入元素一直在不停的与他的父亲节点交换，直到整棵完全二叉树合法</p>
+<p>于是，我们可以这样编码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">heap[++len] = val; <span class="comment">// heap为堆数组，len为当前长度， val为新插入的元素，该步骤实现在尾部插入新元素</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> temp_pos = len; <span class="comment">//定义临时变量存储新添加元素当前的位置</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(temp_pos &gt; <span class="number">1</span> &amp;&amp; heap[temp_pos] &gt; heap[temp_pos / <span class="number">2</span>])<span class="comment">// temp_pos &gt; 1 保证了当前位置节点有父节点，根据完全二叉树性质，我们不难推断：一个节点的父节点标号=当前节点标号/2，heap[temp_pos] &gt; heap[temp_pos / 2]保证了当前元素还没有到达合适位置</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    swap(a[temp_pos], a[temp_pos/<span class="number">2</span>]); <span class="comment">//交换当前节点与父节点</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    temp_pos /= <span class="number">2</span>; <span class="comment">// 更新元素的当前位置</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h3 id="从堆中取出一个最大值-15min"><a href="#从堆中取出一个最大值-15min" class="headerlink" title="从堆中取出一个最大值(15min)"></a>从堆中取出一个最大值(15min)</h3><h4 id="将首部元素取出-0-5min"><a href="#将首部元素取出-0-5min" class="headerlink" title="将首部元素取出(0.5min)"></a>将首部元素取出(0.5min)</h4><p>一般情况下，对我们有用的元素往往是根节点的值（也就是最值），</p>
+<p>因此，我们要取出最大值，首先要将首部元素提出。</p>
+<h4 id="将尾部元素调整至首部-0-5min"><a href="#将尾部元素调整至首部-0-5min" class="headerlink" title="将尾部元素调整至首部(0.5min)"></a>将尾部元素调整至首部(0.5min)</h4><p>首部元素提出后，首部位置将会闲置，为了保证堆仍然是一颗完全二叉树，我们将尾部元素调整至首部</p>
+<h4 id="调整位置以保证堆得性质-14min"><a href="#调整位置以保证堆得性质-14min" class="headerlink" title="调整位置以保证堆得性质(14min)"></a>调整位置以保证堆得性质(14min)</h4><p>同样的，调整之后堆的性质将被打乱，我们需要重新将首部元素调整至合适位置以保证堆的性质</p>
+<p>我们来看一下删除元素的动画</p>
+<p><img src="https://i.loli.net/2020/02/03/hVDxMec8dAUO1Ni.gif" alt="img"></p>
+<p>从动画中我们可以看出，将尾部调整至首部后，首部元素不符合堆的性质，因此不断与比本身大的子节点交换（两个子节点都比本身大时与较大的子节点交换），直至整个堆合法。</p>
+<p>因此，我们可以这样编码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> maxn = heap[<span class="number">1</span>]; <span class="comment">// 取出最大值，赋值给maxn</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">heap[<span class="number">1</span>] = heap[len--]; <span class="comment">// 将尾部元素调至首部，并改变堆的大小</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> temp_pos = <span class="number">1</span>; <span class="comment">// temp_pos 表示首部元素的当前位置</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(temp_pos * <span class="number">2</span> &lt;= len) <span class="comment">// 保证当前节点有子节点</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span>(temp_pos*<span class="number">2</span>+<span class="number">1</span>&lt;=len) <span class="comment">// 如果当前节点有两个子节点</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    	<span class="keyword">if</span>(heap[temp_pos*<span class="number">2</span>]&gt;=heap[temp_pos*<span class="number">2</span>+<span class="number">1</span>]&amp;&amp;heap[temp_pos*<span class="number">2</span>]&gt;=heap[temp_pos])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 如果左子节点是两个子节点中最大的</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">            swap(heap[temp_pos*<span class="number">2</span>],heap[temp_pos]),temp_pos=temp_pos*<span class="number">2</span>; <span class="comment">// 交换当前节点与左子节点</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (heap[temp_pos*<span class="number">2</span>+<span class="number">1</span>]&gt;=heap[temp_pos*<span class="number">2</span>]&amp;&amp;heap[temp_pos*<span class="number">2</span>+<span class="number">1</span>]&gt;=heap[temp_pos])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 如果右子节点是两个子节点中最大的</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">            swap(heap[temp_pos*<span class="number">2</span>+<span class="number">1</span>],heap[temp_pos]),temp_pos=temp_pos*<span class="number">2</span>+<span class="number">1</span>; <span class="comment">// 交换当前节点与右子节点</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">else</span> <span class="keyword">break</span>; <span class="comment">// 除此之外，表明堆已合法</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">else</span> <span class="comment">// 如果当前节点有一个子节点</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span>(heap[temp_pos*<span class="number">2</span>] &gt;= heap[temp_pos]) <span class="comment">//如果子节点大于当前节点</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">            swap(heap[temp_pos*<span class="number">2</span>], heap[temp_pos]),temp_pos=temp_pos*<span class="number">2</span>; <span class="comment">//交换当前节点与子节点</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">else</span> <span class="keyword">break</span>; <span class="comment">// 除此之外，表明堆已合法</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h3 id="线性建堆"><a href="#线性建堆" class="headerlink" title="*线性建堆"></a>*线性建堆</h3><p>至此，堆的基本内容已经给大家讲完了，已经了解时间复杂度的大家可以对堆的建立，删除，插入进行一个简单的分析，其实不难得出，一次插入与删除的复杂度均为O（log n）</p>
+<p>现在，我们有n个元素，如果我们用上面所介绍的方法建堆，将插入n次，每次复杂度为O（log n），总复杂度为O（n*log n）</p>
+<p>事实上，我们有线性时间建堆的方法，即复杂度O（n）的建堆方法</p>
+<p>下面我们通过动画了解一下：</p>
+<p><img src="https://i.loli.net/2020/02/03/6FhJfgVHGcLr8eN.gif" alt="img"></p>
+<p>通过动画我们可以发现，线性建堆的方法，在于一开始即将无序的元素放入堆数组中，</p>
+<p>然后从尾部元素开始，逐个向下调整（过程类似于删除首部元素后的调整），直到首部元素向下调整的过程结束，</p>
+<p>一个符合堆性质的堆数组即建立完成</p>
+<p>下面通过伪代码的方式给大家呈现整个过程的编码实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = len; i &gt;= <span class="number">1</span>; i--)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span>(i * <span class="number">2</span> &gt; len)<span class="keyword">continue</span>; <span class="comment">// 无子节点时直接跳过</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    down(i); <span class="comment">//向下调整</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>其中down()函数不再给出，具体实现请大家参考从堆中取出最大值的操作。</p>
+<p>编码完了，我们还有一个问题没有解决，即：</p>
+<p>为什么这样操作的复杂度是O（n）的？</p>
+<p>关于这个问题感兴趣的同学可以移步<a href="https://blog.csdn.net/anonymalias/article/details/8807895" target="_blank" rel="noopener">线性建堆复杂度证明</a>去了解一下，在这里不做赘述</p>
+<h3 id="使用堆来排序-4-5min"><a href="#使用堆来排序-4-5min" class="headerlink" title="使用堆来排序(4.5min)"></a>使用堆来排序(4.5min)</h3><p>排序过程中，不断从堆顶（即根节点取出元素）即可，伪代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> p[N], len = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(heap不为空)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    p[++len] = 取出堆顶();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h3 id="使用堆来找出一个集合中的最值-0-5min"><a href="#使用堆来找出一个集合中的最值-0-5min" class="headerlink" title="使用堆来找出一个集合中的最值(0.5min)"></a>使用堆来找出一个集合中的最值(0.5min)</h3><p>建好堆后获取根节点的值即可</p>
+<h2 id="哈夫曼树-10min"><a href="#哈夫曼树-10min" class="headerlink" title="哈夫曼树(10min)"></a>哈夫曼树(10min)</h2><h3 id="什么是哈夫曼树-5min"><a href="#什么是哈夫曼树-5min" class="headerlink" title="*什么是哈夫曼树(5min)"></a>*什么是哈夫曼树(5min)</h3><p>给定N个权值作为N个叶子结点，构造一棵二叉树，若该树的带权路径长度达到最小，称这样的二叉树为最优二叉树，也称为哈夫曼树(Huffman Tree)。哈夫曼树是带权路径长度最短的树，权值较大的结点离根较近。</p>
+<h3 id="如何构建一颗哈夫曼树-3min"><a href="#如何构建一颗哈夫曼树-3min" class="headerlink" title="*如何构建一颗哈夫曼树(3min)"></a>*如何构建一颗哈夫曼树(3min)</h3><p>可以通过将元素压入小顶堆，每次取出两个元素，权值相加作为两个元素的根节点，同时将根节点压入堆中，直到堆中只剩下一个元素，则哈夫曼树建成</p>
+<h3 id="哈夫曼树有什么用-2min"><a href="#哈夫曼树有什么用-2min" class="headerlink" title="哈夫曼树有什么用(2min)"></a>哈夫曼树有什么用(2min)</h3><p>一道经典的例题：<a href="https://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Contest/contestproblem/cid/3172/pid/2127" target="_blank" rel="noopener">SDUTOJ 树-堆结构练习——合并果子之哈夫曼树</a></p>
+<p>解题思路：</p>
+<p>因为哈夫曼树是带权路径长度最短的树，所以本题可以通过构建哈夫曼树的思路解决，即：</p>
+<p>将所有元素压入小顶堆中，每次取出两个元素相加，压入堆，直到堆中只剩一个元素，则该元素为最终答案</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="[https://baike.baidu.com/item/%E4%BA%8C%E5%8F%89%E6%A0%91](https://baike.baidu.com/item/二叉树)">百度百科：二叉树</a></p>
+<p><a href="[https://baike.baidu.com/item/%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91](https://baike.baidu.com/item/满二叉树)">百度百科：满二叉树</a></p>
+<p><a href="[https://baike.baidu.com/item/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91](https://baike.baidu.com/item/完全二叉树)">百度百科：完全二叉树</a></p>
+<p><a href="https://blog.csdn.net/adidas74891496/article/details/82262872" target="_blank" rel="noopener">二叉树,完全二叉树,满二叉树,完美二叉树</a></p>
+<p><a href="https://www.jianshu.com/p/6b526aa481b1" target="_blank" rel="noopener">数据结构：堆（Heap）</a></p>
+<p><a href="https://blog.csdn.net/anonymalias/article/details/8807895" target="_blank" rel="noopener">堆排序中建堆过程的时间复杂度O(n)的证明</a></p>
+<p><a href="[https://baike.baidu.com/item/%E5%A0%86/20606834?fr=aladdin](https://baike.baidu.com/item/堆/20606834?fr=aladdin)">百度百科：堆</a></p>
+<p><a href="[https://baike.baidu.com/item/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91/2305769?fr=aladdin](https://baike.baidu.com/item/哈夫曼树/2305769?fr=aladdin)">百度百科：哈夫曼树</a></p>
+<p><a href="https://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Contest/contestproblem/cid/3172/pid/2127" target="_blank" rel="noopener">SDUTOJ 树-堆结构练习——合并果子之哈夫曼树</a></p>
+<p><a href="https://visualgo.net/zh/heap?slide=1" target="_blank" rel="noopener">可视化数据结构学习VisuAlgo—二叉堆</a></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://miracle-qsh.github.io/2020/03/07/%E5%A0%86%E4%B8%8E%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/03/07/%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            二分匹配
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/03/07/%E5%8D%95%E8%B0%83%E6%A0%88/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">单调栈</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020
+        QSH
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/happy-face.svg" alt="QSH&#39;s blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/share.js"></script>
+<script src="/js/lazyload.min.js"></script>
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['心如花木，向阳而生', '不再犹豫', '做最好的自己'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+<script src="/js/tocbot.min.js"></script>
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/ayer.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>

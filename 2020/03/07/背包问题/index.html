@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="心如花木，向阳而生" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    背包问题 |  QSH&#39;s blog
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="QSH's blog" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-背包问题" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  背包问题
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/07/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-03-07T08:47:50.595Z" itemprop="datePublished">2020-03-07</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">8分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>01背包、完全背包、多重背包的总结</p>
+<a id="more"></a>
+<p><strong>动态规划—简单背包问题</strong></p>
+<p><strong>零   开始之前</strong></p>
+<p><strong>什么是动态规划？</strong></p>
+<p>通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法叫做动态规划。</p>
+<p><strong>什么时候能用动态规划？</strong></p>
+<p>动态规划常常适用于有重叠子问题和最优子结构性质的问题。</p>
+<p><strong>什么是最优子结构？</strong></p>
+<p>当问题的最优解包含了其子问题的最优解时，称该问题具有最优子结构性质。</p>
+<p><strong>什么是重叠子问题？</strong></p>
+<p>在用递归算法自顶向下解问题时，每次产生的子问题并不总是新问题，有些子问题被反复计算多次。动态规划算法正是利用了这种子问题的重叠性质，对每一个子问题只解一次，而后将其解保存在一个表格中，在以后尽可能多地利用这些子问题的解。</p>
+<p><strong>动态规划该怎么做？</strong></p>
+<p>1、确定状态</p>
+<p>2、确定状态转移方程</p>
+<p>3、从大到小（记忆化+递归）、从小到大（递推）</p>
+<p><strong>一个简单的例子</strong></p>
+<p>爬楼梯问题</p>
+<p>你正在爬一个有n个台阶的楼梯，每次只能上1个或者2个台阶，那么到达顶端共有多少种不同的方法？</p>
+<ul>
+<li>确定状态 dp[i] 表示有 i 个台阶时的方法数</li>
+<li>确定转移方程 dp[i] = dp[i - 1] + dp[i - 2]。</li>
+<li>递归加记忆化求解：</li>
+</ul>
+<p>#include &lt;bits/stdc++.h&gt; #define ll long long #define N 5123 using namespace std; int dp[N]; int F(int n){    if(n == 1 || n == 2)return n; //边界    if(dp[n] != 0)return dp[n]; //记忆化    return F(n - 1) + F(n - 2); // 转移 } int main(){    int n;    scanf(“%d”, &amp;n);    printf(“%d\n”, F(n)); }</p>
+<ul>
+<li>递推求解：</li>
+</ul>
+<p>#include &lt;bits/stdc++.h&gt; #define ll long long #define N 5123 using namespace std; int dp[N]; int main(){    int n;    scanf(“%d”, &amp;n);    dp[1] = 1; dp[2] = 2; //边界    for(int i = 3; i &lt;= n; i++)        dp[i] = dp[i - 1] + dp[i - 2]; //转移    printf(“%d\n”, dp[n]); }</p>
+<p><strong>什么是背包问题？</strong></p>
+<p>动态规划一般可分为线性动规，区域动规，树形动规，背包动规四类。背包问题是动态规划问题的一种类型。</p>
+<p><strong>一   0-1背包问题</strong></p>
+<p><strong>简化的 01-背包 ——装箱问题</strong></p>
+<p>题目链接：（<a href="https://www.acwing.com/problem/content/1026/）" target="_blank" rel="noopener">https://www.acwing.com/problem/content/1026/）</a></p>
+<p>题目大意：有一个箱子容量为 V，同时有 n 个物品，每个物品有一个体积（正整数）。</p>
+<p>要求 n 个物品中，任取若干个装入箱内，使箱子的剩余空间为最小。</p>
+<p><strong>确定状态</strong></p>
+<p> dp[i][j] 表示前 i 个物品能否组成体积 j</p>
+<p><strong>确定转移方程</strong></p>
+<p>dp[i][j] = 1 (f[i - 1][j] == 1 || f[i - 1][j - v[i]] == 1)</p>
+<p>dp[i][j] = 0 (else)</p>
+<p><strong>列表验证</strong></p>
+<p>样例输入: 24 6</p>
+<p>​        8 3 12 7 9 7</p>
+<p>样例输出：0</p>
+<p><img src="D:%5Cnoteloc%5Cqq48F8B56E1766418F93662E3F74896C51%5C422eb792ef05482d93c47d674b28239d%5Cclipboard.png" alt="img"></p>
+<p><strong>递推解决</strong></p>
+<p>#include &lt;bits/stdc++.h&gt; #define ll long long #define N 21234 using namespace std; int dp[31][N], a[31]; int main() {    int v, n;    scanf(“%d %d”, &amp;v, &amp;n);    for(int i = 1; i &lt;= n; i++)scanf(“%d”, &amp;a[i]);    dp[0][0] = 1;    int ans = v;    for(int i = 1; i &lt;= n; i++){        for(int j = 0; j &lt;= v; j++){            if(dp[i - 1][j] == 1)dp[i][j] = 1;            if(j - a[i] &gt;= 0 &amp;&amp; dp[i - 1][j - a[i]] == 1)dp[i][j] = 1;            if(dp[i][j] == 1)ans = min(ans, v - j);        }    }    printf(“%d\n”, ans); }</p>
+<p><strong>01滚动</strong></p>
+<p><img src="D:%5Cnoteloc%5Cqq48F8B56E1766418F93662E3F74896C51%5C33d8d1f153f742b59b21be5968584e1d%5Cclipboard.png" alt="img"></p>
+<p>我们可以看到每一行的结果实际上只与上一行有关，所以就可以01滚动——f[i][0,1] 一行记录前一行的值，另一行记录当前行的值……</p>
+<p><strong>就地滚动</strong></p>
+<p>对于本题更加常用的方法是就地滚动，顾名思义只用一个一维数组了!之前的状态和当前的状态都记在同一个数组里了！</p>
+<p>比如：</p>
+<p>for(int i = 1; i &lt;= n; i++){        for(int j = 0; j &lt;= v; j++){            if([j] == 1)dp[j] = 1;            if(j - a[i] &gt;= 0 &amp;&amp; dp[j - a[i]] == 1)dp[j] = 1;        }    }</p>
+<p>但是简单的变成一维以后有可能发出问题</p>
+<p>比如：</p>
+<p>假设第一个物品体积3</p>
+<p><img src="D:%5Cnoteloc%5Cqq48F8B56E1766418F93662E3F74896C51%5C33c5eb6e8db543fcbfa1b455c1535f05%5Cclipboard.png" alt="img"></p>
+<p>一个物品被使用了多次！</p>
+<p>如何解决？</p>
+<p>我们只需改变内层循环的顺序即可！</p>
+<p>for(int i = 1; i &lt;= n; i++){        for(int j = v; j &gt;= 0; j–){            if([j] == 1)dp[j] = 1;            if(j - a[i] &gt;= 0 &amp;&amp; dp[j - a[i]] == 1)dp[j] = 1;        }    }</p>
+<p><img src="D:%5Cnoteloc%5Cqq48F8B56E1766418F93662E3F74896C51%5C1de53b8a016b44ad9cf686b26be7b136%5Cclipboard.png" alt="img"></p>
+<p>问题得到解决！</p>
+<p><strong>0-1背包问题</strong></p>
+<p>题目链接：（<a href="https://www.acwing.com/problem/content/2/）" target="_blank" rel="noopener">https://www.acwing.com/problem/content/2/）</a></p>
+<p>题目大意：有N件物品和一个容量为V的背包。第i件物品的费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使价值总和最大。</p>
+<p><strong>确定状态</strong></p>
+<p>f[i][j]表示前i件物品恰放入一个容量为j的背包可以获得的最大价值</p>
+<p><strong>确定状态转移方程</strong></p>
+<p>两种情况：</p>
+<p>   1.不放当前物品  f[i][j] = f[i-1][j]</p>
+<p>   2.放当前物品     f[i][j] = f[i-1][j-c[i]]+w[i]    </p>
+<p>f[i][j]=max{f[i-1][j],f[i-1][j-c[i]]+w[i]}</p>
+<p><strong>列表验证</strong></p>
+<p><img src="D:%5Cnoteloc%5Cqq48F8B56E1766418F93662E3F74896C51%5C187c9604e2624b69b68201a6e2dc9e46%5Cclipboard.png" alt="img"></p>
+<p><strong>就地滚动</strong></p>
+<p>#include &lt;bits/stdc++.h&gt; using namespace std; #define N 2123 #define ll long long int dp[N], u[N], v[N]; int main() {    ios::sync_with_stdio(0);    int n, w, ans = 0;    cin &gt;&gt; n &gt;&gt; w;    for(int i = 1; i &lt;= n; i++){        cin &gt;&gt; u[i] &gt;&gt; v[i];    }    for(int i = 1; i &lt;= n; i++){        for(int j = w; j &gt;= u[i]; j–){            dp[j] = max(dp[j], dp[j - u[i]] + v[i]);            ans = max(ans, dp[j]);        }    }    printf(“%d\n”, ans);    return 0; }</p>
+<p><strong>二   完全背包问题</strong></p>
+<p>题目链接：（<a href="https://www.acwing.com/problem/content/3/）" target="_blank" rel="noopener">https://www.acwing.com/problem/content/3/）</a></p>
+<p>题目大意：有 N 种物品和一个容量为 V 的背包，每种物品都有无限件可用。放入第 i 种物品的费用是 Ci ，价值是 Wi 。求解：将哪些物品装入背包，可使这些物品的耗费的费用总和不超过背包容量，且价值总和最大。</p>
+<p><strong>回忆 0-1 背包的就地滚动</strong></p>
+<p>回想 0-1 背包就地滚动时错误的代码，之所以错误，是因为每件物品重复使用多次，这恰好符合本题的要求！</p>
+<p><strong>递推求解</strong></p>
+<p>#include &lt;bits/stdc++.h&gt; using namespace std; #define N 2123 #define ll long long int dp[N], u[N], v[N]; int main() {    ios::sync_with_stdio(0);    int n, w, ans = 0;    cin &gt;&gt; n &gt;&gt; w;    for(int i = 1; i &lt;= n; i++){        cin &gt;&gt; u[i] &gt;&gt; v[i];    }    for(int i = 1; i &lt;= n; i++){        for(int j = u[i]; j &lt;= w; j++){            dp[j] = max(dp[j], dp[j - u[i]] + v[i]);            ans = max(ans, dp[j]);        }    }    printf(“%d\n”, ans);    return 0; }</p>
+<p><strong>三   多重背包</strong></p>
+<p>题目链接：（<a href="https://www.acwing.com/problem/content/3/）" target="_blank" rel="noopener">https://www.acwing.com/problem/content/3/）</a></p>
+<p>题目大意：有N种物品和一个容量为V的背包。第i种物品最多有n[i]件可用，每件费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使这些物品的费用总和不超过背包容量，且价值总和最大。</p>
+<p><strong>问题的转化</strong></p>
+<p>对于本题，我们可以将其拆解为 0-1 背包问题解决</p>
+<p><strong>如何优化</strong></p>
+<p><img src="D:%5Cnoteloc%5Cqq48F8B56E1766418F93662E3F74896C51%5Cd8a1e6cffc60404e8b098f126d6882b1%5Cclipboard.png" alt="img"></p>
+<p><img src="D:%5Cnoteloc%5Cqq48F8B56E1766418F93662E3F74896C51%5Caac0486203ed43aa91e527a73a9e7b2b%5Cclipboard.png" alt="img"></p>
+<p>#include&lt;bits/stdc++.h&gt; using namespace std; int main() {    int N,V,v[1001],w[1001],dp[2001],s[1001]    int a[25000],b[25000];      //2的12次方大于2000，也就是说一个数最多可以拆成12个，故数组容量乘12    cin&gt;&gt;N&gt;&gt;V;    memset(dp,0,sizeof(dp));    for(int i=0;i&lt;N;i++)     cin&gt;&gt;v[i]&gt;&gt;w[i]&gt;&gt;s[i];    int total=0;    for(int i=0;i&lt;N;i++)    {        for(int j=1;j&lt;s[i];j&lt;&lt;=1)//二进制拆分         {            a[total]=j<em>w[i];//存价值            b[total++]=j</em>v[i];//存容量            s[i]-=j;         }         if(s[i])//当s[i]&gt;0;         {             a[total]=s[i]<em>w[i];             b[total++]=s[i]</em>v[i];         }    }    for(int i=0;i&lt;total;i++)//01背包     for(int j=V;j&gt;=b[i];j–)      dp[j]=max(dp[j],dp[j-b[i]]+a[i]);    cout&lt;&lt;dp[V];    return 0; }</p>
+<p><strong>四   参考资料</strong></p>
+<p>博客：动态规划快速入门：<a href="https://www.jianshu.com/p/4dd4717301dc" target="_blank" rel="noopener">https://www.jianshu.com/p/4dd4717301dc</a></p>
+<p>题目：AcWing题库</p>
+<p>参考课件：背包九讲（崔添翼）</p>
+<p>​    nwpu2014暑假集训：动态规划2——简单背包问题（dsy）</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://miracle-qsh.github.io/2020/03/07/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/03/07/%E5%8D%9A%E5%BC%88/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            博弈
+          
+        </div>
+      </a>
+    
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020
+        QSH
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/happy-face.svg" alt="QSH&#39;s blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/share.js"></script>
+<script src="/js/lazyload.min.js"></script>
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['心如花木，向阳而生', '不再犹豫', '做最好的自己'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+<script src="/js/tocbot.min.js"></script>
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/ayer.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>

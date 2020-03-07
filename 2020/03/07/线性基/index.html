@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="心如花木，向阳而生" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    线性基 |  QSH&#39;s blog
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="QSH's blog" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-线性基" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  线性基
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/07/%E7%BA%BF%E6%80%A7%E5%9F%BA/" class="article-date">
+  <time datetime="2020-03-07T09:07:47.349Z" itemprop="datePublished">2020-03-07</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">8分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>线性基的总结</p>
+<a id="more"></a>
+<h2 id="线性基详解"><a href="#线性基详解" class="headerlink" title="线性基详解"></a>线性基详解</h2><h3 id="线性基是什么"><a href="#线性基是什么" class="headerlink" title="线性基是什么"></a>线性基是什么</h3><p>你可以理解为将一个序列处理完之后得到的产物，并且有如下性质（后面有证明）：</p>
+<h3 id="线性基的性质"><a href="#线性基的性质" class="headerlink" title="线性基的性质"></a>线性基的性质</h3><ol>
+<li>原序列里面的任意一个数都可以由线性基里面的一些数异或得到</li>
+<li>线性基里面的任意一些数异或起来都不能得到00</li>
+<li>线性基里面的数的个数唯一，并且在保持性质一的前提下，数的个数是最少的</li>
+</ol>
+<h3 id="线性基的构造过程"><a href="#线性基的构造过程" class="headerlink" title="线性基的构造过程"></a>线性基的构造过程</h3><p>那么它是怎么构造的呢？</p>
+<p>我们设有一个数组dd，表示序列aa的线性基，下标从00开始算。对于序列里面的每一个数，我们尝试将它插入到线性基里面去，具体如何插入这里给出伪代码（为了方便理解，我们设 x(2)x(2) 为xx的二进制数）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">复制for i&#x3D;60 to 0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">if(x(2)的第i+1位为1)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    if(d[i]为0)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        d[i]&#x3D;x;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        break;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    else x&#x3D;x^d[i];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>据此，我们可以得到一个关于dd数组的性质：若d[i]d[i]不为00，则d[i]（2）d[i]（2）的第i+1i+1位为11，并且d[i]（2）d[i]（2）的最高位就是第i+1i+1位。<br>为了更好地进行线性基的讲解，我们要先知道关于异或的一个小性质：<br>如果满足aa ^ bb ^ c=0c=0 ，那么aa ^ b=cb=c，所以如果aa ^ b=cb=c，那么aa ^ c=bc=b<br>证明虽然简单但是这里就不给出了，不明白的读者手动模拟一下就明白了</p>
+<h3 id="线性基性质的证明"><a href="#线性基性质的证明" class="headerlink" title="线性基性质的证明"></a>线性基性质的证明</h3><h4 id="性质1"><a href="#性质1" class="headerlink" title="性质1"></a>性质1</h4><p>我们知道了线性基的构造方法后，其实就可以很容易想到如何证明性质1了，我们设原序列里面有一个数x，我们尝试用它来构造线性基，那么会有两种结果：1、不能成功插入线性基；2、成功插入线性基。</p>
+<p>分类讨论一下：</p>
+<ol>
+<li>不能成功插入线性基</li>
+</ol>
+<p>什么时候不能插入进去呢？<br>显然就是它在尝试插入时异或若干个数之后变成了00<br>那么就有如下式子：<br>xx ^ d[a]d[a] ^ d[b]d[b] ^ d[c]d[c] ^…=0=0<br>根据上面的那个小性质，则有：<br>d[a]d[a] ^ d[b]d[b] ^ d[c]d[c] ^…=x=x<br>所以，如果xx不能成功插入线性基，一定是因为当前线性基里面的一些数异或起来可以等于xx。</p>
+<ol>
+<li>可以成功插入线性基</li>
+</ol>
+<p>我们假设xx插入到了线性基的第ii个位置，显然，它在插入前可能异或若干个数，那么就有：<br>xx ^ d[a]d[a] ^ d[b]d[b] ^ d[c]d[c] ^…=d[i]=d[i]<br>d[i]d[i] ^ d[a]d[a] ^ d[b]d[b] ^ d[c]d[c] ^…=x=x<br>所以显然，xx此时也可以由线性基里面的若干个数异或得到。</p>
+<p>综上，性质1得证</p>
+<h4 id="性质2"><a href="#性质2" class="headerlink" title="性质2"></a>性质2</h4><p>我们使用反证法<br>设d[a]d[a] ^ d[b]d[b] ^ d[c]=0d[c]=0（其中d[c]d[c]比d[a]d[a]和d[b]d[b]要更晚被插入线性基）<br>那么有d[a]d[a] ^ d[b]=d[c]d[b]=d[c]<br>∵d[c]∵d[c]可以由d[a]d[a] ^ d[b]d[b]得到<br>∴d[c]∴d[c]不可能插入线性基<br>故假设不成立，所以线性基中不存在有任何数异或起来可以得到00。</p>
+<h4 id="性质3"><a href="#性质3" class="headerlink" title="性质3"></a>性质3</h4><p>分类讨论一下</p>
+<ol>
+<li>假如序列里面的所有元素都可以插入到线性基里面</li>
+</ol>
+<p>显然如果是这种情况的话，不管是用什么顺序将序列里的数插入到线性基里，线性基中的元素一定与原序列元素数量相同。所以性质3成立。</p>
+<ol>
+<li>假如序列里面的一些元素不能插入到线性基里面</li>
+</ol>
+<p>我们设xx不能插入到线性基里面，那么一定满足形如d[a]d[a] ^ d[b]d[b] ^ d[c]=xd[c]=x的式子，那我们尝试将插入顺序改变，变成：d[a]d[a]、d[b]d[b]、xx、d[c]d[c]。那么显然，d[c]d[c]是不可能插入成功的，简单的证明：<br>∵d[a]∵d[a] ^ d[b]d[b] ^ d[c]=xd[c]=x<br>∴d[a]∴d[a] ^ d[b]d[b] ^ x=d[c]x=d[c]（根据上面那条异或性质）<br>原来是xx插入不进去，改变顺序后，d[c]d[c]插入不进去，也就是说，对于插入不进去的元素，改变插入顺序后，要么还是插入不进去，要么就是插入进去了，同时另一个原来插入的进去的元素插入不进去了，所以，可以插入进去的元素数量一定是固定的。<br>显然，如果你去掉线性基里面的任意一个数，都会使得原序列里的一些（或一个）数无法通过用线性基里的元素异或得到，所以，每一个元素都是必要的，换句话说，这里面没有多余的元素，所以，这个线性基的元素个数在保持性质1的前提下，一定是最少的。</p>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">复制void add(ll x)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    for(int i&#x3D;50;i&gt;&#x3D;0;i--)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        if(x&amp;(1ll&lt;&lt;i))&#x2F;&#x2F;注意，如果i大于31，前面的1的后面一定要加ll</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">            if(d[i])x^&#x3D;d[i];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">            else</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">                d[i]&#x3D;x;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">                break;&#x2F;&#x2F;记得如果插入成功一定要退出</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h2 id="线性基的应用"><a href="#线性基的应用" class="headerlink" title="线性基的应用"></a>线性基的应用</h2><h3 id="求异或最大值"><a href="#求异或最大值" class="headerlink" title="求异或最大值"></a>求异或最大值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">复制ll ans()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    ll anss&#x3D;0;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    for(int i&#x3D;50;i&gt;&#x3D;0;i--)&#x2F;&#x2F;记得从线性基的最高位开始</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    if((anss^d[i])&gt;anss)anss^&#x3D;d[i];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    return anss;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr></table></figure>
+
+<h3 id="求异或最小值"><a href="#求异或最小值" class="headerlink" title="求异或最小值"></a>求异或最小值</h3><p>显然的，最小值一定是最小的d[i]d[i]</p>
+<h3 id="求异或第-K-小值"><a href="#求异或第-K-小值" class="headerlink" title="求异或第 K 小值"></a>求异或第 K 小值</h3><p>完整的说，应该是——从一个序列中取任意个元素进行异或，求能异或出的所有数字中第kk小的那个。<br>首先，要对这个序列的线性基处理一下，对于每一个d[i]d[i]，枚举j=ito1j=ito1，如果d[i]（2）d[i]（2）的第jj位为11，那么d[i]d[i]异或d[j−1]d[j−1]。<br>那么处理完一个线性基之后，应该大致是长这个样子的（x表示0或1）：<br>1xxxx0xxx0x1xxxx0xxx0x<br>……1xxx0x……1xxx0x<br>………..1x………..1x<br>求解过程：将k先转成二进制，假如kk的第ii位为11，ansans就异或上线性基中第ii个元素（注意不是直接异或d[i−1]d[i−1]）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">复制void work()&#x2F;&#x2F;处理线性基</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	for(int i&#x3D;1;i&lt;&#x3D;60;i++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	for(int j&#x3D;1;j&lt;&#x3D;i;j++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	if(d[i]&amp;(1&lt;&lt;(j-1)))d[i]^&#x3D;d[j-1];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">ll k_th(ll k)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">	if(k&#x3D;&#x3D;1&amp;&amp;tot&lt;n)return 0;&#x2F;&#x2F;特判一下，假如k&#x3D;1，并且原来的序列可以异或出0，就要返回0，tot表示线性基中的元素个数，n表示序列长度</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">	if(tot&lt;n)k--;&#x2F;&#x2F;类似上面，去掉0的情况，因为线性基中只能异或出不为0的解</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	work();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">	ll ans&#x3D;0;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">	for(int i&#x3D;0;i&lt;&#x3D;60;i++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">	if(d[i]!&#x3D;0)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">	&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">		if(k%2&#x3D;&#x3D;1)ans^&#x3D;d[i];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">		k&#x2F;&#x3D;2;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h3 id="判断能否被当前线性基中元素异或得到"><a href="#判断能否被当前线性基中元素异或得到" class="headerlink" title="判断能否被当前线性基中元素异或得到"></a>判断能否被当前线性基中元素异或得到</h3><p>把它尝试插入进线性基里面去，假如可以插入，说明不能异或得到，假如插不进去，说明能异或得到</p>
+<h2 id="题集"><a href="#题集" class="headerlink" title="题集"></a>题集</h2><h3 id="P3812-【模板】线性基"><a href="#P3812-【模板】线性基" class="headerlink" title="P3812 【模板】线性基"></a>P3812 【模板】线性基</h3><p>“<a href="https://www.luogu.org/problem/P3812&quot;" target="_blank" rel="noopener">https://www.luogu.org/problem/P3812&quot;</a></p>
+<h3 id="P4570-BJWC2011-元素"><a href="#P4570-BJWC2011-元素" class="headerlink" title="P4570 [BJWC2011]元素"></a>P4570 [BJWC2011]元素</h3><p>“<a href="https://www.luogu.org/problem/P4570&quot;" target="_blank" rel="noopener">https://www.luogu.org/problem/P4570&quot;</a></p>
+<h3 id="P3857-TJOI2008-彩灯"><a href="#P3857-TJOI2008-彩灯" class="headerlink" title="P3857 [TJOI2008]彩灯"></a>P3857 [TJOI2008]彩灯</h3><p>“<a href="https://www.luogu.org/problem/P3857&quot;" target="_blank" rel="noopener">https://www.luogu.org/problem/P3857&quot;</a></p>
+<h3 id="P3292-SCOI2016-幸运数字"><a href="#P3292-SCOI2016-幸运数字" class="headerlink" title="P3292 [SCOI2016]幸运数字"></a>P3292 [SCOI2016]幸运数字</h3><p>“<a href="https://www.luogu.org/problem/P3292&quot;" target="_blank" rel="noopener">https://www.luogu.org/problem/P3292&quot;</a></p>
+<h2 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h2><p>“<a href="https://blog.csdn.net/a_forever_dream/article/details/83654397&quot;" target="_blank" rel="noopener">https://blog.csdn.net/a_forever_dream/article/details/83654397&quot;</a></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://miracle-qsh.github.io/2020/03/07/%E7%BA%BF%E6%80%A7%E5%9F%BA/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/03/07/%E6%96%9C%E7%8E%87DP/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            斜率DP
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/03/07/%E7%BA%BF%E6%AE%B5%E6%A0%91/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">线段树</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020
+        QSH
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/happy-face.svg" alt="QSH&#39;s blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/share.js"></script>
+<script src="/js/lazyload.min.js"></script>
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['心如花木，向阳而生', '不再犹豫', '做最好的自己'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+<script src="/js/tocbot.min.js"></script>
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/ayer.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>
