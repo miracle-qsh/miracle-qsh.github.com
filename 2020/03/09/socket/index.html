@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    容斥原理 |  QSH&#39;s blog
+    Socket |  QSH&#39;s blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -32,7 +32,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-容斥原理" class="article article-type-post" itemscope
+  <article id="post-socket" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -40,7 +40,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  容斥原理
+  Socket
 </h1>
   
 
@@ -49,12 +49,12 @@
 
     
     <div class="article-meta">
-      <a href="/miracle-qsh.com/2020/03/07/%E5%AE%B9%E6%96%A5%E5%8E%9F%E7%90%86/" class="article-date">
-  <time datetime="2020-03-07T09:00:49.253Z" itemprop="datePublished">2020-03-07</time>
+      <a href="/miracle-qsh.com/2020/03/09/socket/" class="article-date">
+  <time datetime="2020-03-09T02:13:38.381Z" itemprop="datePublished">2020-03-09</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/miracle-qsh.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+    <a class="article-category-link" href="/miracle-qsh.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
   </div>
 
       
@@ -64,7 +64,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">213字</span>
+            <span class="post-count">8字</span>
         </span>
     </span>
 
@@ -84,8 +84,6 @@
 
     
     
-    <div class="tocbot"></div>
-
 
 
 
@@ -100,10 +98,15 @@
       
 
       
-      <p>容斥原理的总结</p>
-<a id="more"></a>
-<h2 id="HDU-1796-How-many-integers-can-you-find-（容斥原理）"><a href="#HDU-1796-How-many-integers-can-you-find-（容斥原理）" class="headerlink" title="HDU - 1796 How many integers can you find （容斥原理）"></a>HDU - 1796 How many integers can you find （容斥原理）</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">ll n, m, a[<span class="number">15</span>], ans, p;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">lcm</span><span class="params">(ll a, ll b)</span></span>&#123;<span class="keyword">return</span> a * b / __gcd(a, b);&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(ll x, ll sum, ll num)</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span>(num &gt; m)<span class="keyword">return</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span>(num % <span class="number">2</span> == <span class="number">1</span>)&#123;ans += (n - <span class="number">1</span>) / sum;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span>(num % <span class="number">2</span> == <span class="number">0</span>)&#123;ans -= (n - <span class="number">1</span>) / sum;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span>(ll i = x + <span class="number">1</span>; i &lt; m; i++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        dfs(i, lcm(sum, a[i]), num + <span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> ;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%lld %lld"</span>, &amp;n, &amp;p) != EOF)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">        m = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span>(ll i = <span class="number">0</span>; i &lt; p; i++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;a[m++]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">if</span>(a[i] == <span class="number">0</span> || a[i] &gt; n)m--;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">        ans = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">        ll flag = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span>(ll i = <span class="number">0</span>; i &lt; m; i++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">            dfs(i, a[i], <span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">if</span>(n % a[i] == <span class="number">0</span>)flag = <span class="number">1</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
+      <div id="hexo-blog-encrypt" data-wpm="密码错误" data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="" />
+    <label for="hbePass">请输入文章密码</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="2c062b962d3464b78b7f3224f6883279d7b68d52baa5b76b520552de1e0b5e93">c8da8f89390acc24f3d437bfd47a7d6a7f1b70ce407147edd30c61ffa7f8acd2c273dedb42f6f222106b3bf7b1ff5c6a7de197481110c20e88da9d10d9d5bff6c60a529bed877305662229c8212ae155e05e8be393c048a9478d6334f1c1a83660c94476f28cf59922f1e8487451243814bf3f72a6fefe46e3227b6f57f19dc639078714e285f97b4aa183d32a90167b7d6b48c2c334c5bedc3e11317c557eed771f1d3760c18a87b79b2e16a357fb4a2545e931818f0a12eb572cdeac8d1721968e8c756138844bee35596a6e9cd185171d289900b96c1e7674f5c58be848a975f891bd28e6db60c8cd9c30f06364146aabd0fe9276999c42d8b9dd50d0d9bb2463f1ced3cac8bb181f05f66eb9770d64659c6077155a7573e8a44ab0df1c8cfa3335f36276c8a4a9b8314fb2139fd9c7998d57a2b4563414c08a2ae5c066e9804fce03bfd2feaad135771fbb112315cad78e5534ebce3ecb5671c938b91a4b07c8a57c6a0200fed8350267944dda82c7d9e7be291228702b4246fc2dea47c69d2e66d5913c4886b1399b4b06064d6f20bf0f482a6b8e5e3035369c68edb7bb4a518bc0fa62b756c1717ceeac4b296ce9411c0ad3a72f71fd04f5f67bc29680818a1f658315fca023d9efc8fd41e243e6c4c53a841690ffde8b3ea37db0e1a890f6eee1b3349f3d3b2cead7a0d267e0372553bd6cf3c5224a700631aece8bdbcfc483c0077628c68248b73e790dccbca52f5cd973d98c549271097af7e9201a2761353bcce179b808dfe15dea0ae7f955dc85a616664c442e56397ee00c9169ed7bbcc693efe76b9e65f673f87f92812dc161dcecd0e82725fe866e0e12a2a9c9bd961d8ff11066a57578d1bc996dd79ae2cbb96903cda6bf9875cbf207592358c1378a688e177a338330ae9c88ac23f14564f1fe8d894a29e8958d6ee8aef01470f6689154536c63ff641853d40034ecfa0d4679d6ef94604aa7f15c67f3149f01bef9d10ba11b3c2992a8934ddf97a22124954c71e0f9a2e5c23cec5d19b9dab7e734f3adfa9ebc15f7a296e7074b1759939a3fb8f0cfb22b5ef6fd2ec1197864aff793a06ebd1381041109d74ac3ad0999c15c2ad1e37f6252dcb012ee9ebf8e277c4b53dd9d091ce85b0afcca6754cd19b3a2ffa221aaef3f57f0b2880513d8ad336d077c48ee09f74f525e2d85db7b994c5c770249b9a45163b7133731f649d757c8f8ed928167fed9910c2f475161f34ef124bc3c9872b524c60323e42d3e9072c4b702b98312de983f856e2e8ea933e9cbee6e56b17a120fc398bcb83f057f422271bfdcd50171b03d9a0cc691aff4dc5066d85f9195b439adaaf3b6061bfba8125e41d36f6b7866b3bac47c64899d7a0d503ef0033265b0c26bf9099e02aa46ba52b0fc666ab83d17564c90e594b246c2d0112ae7030341bb610e62a1fc7595337e2c2ce4450476b4f498f3578eb42bcfd85d7fc35dc8cb7cf3dceec1cef469ac692cd9e3984b2ecf73e437751548903aa8dde85b931de5a066f829778ddac3b47d760854abce2e4146a2da3076d29e19dd514dd32280972b6bda27181b2feb74a691ca9a77b9fcc679c46f4632820e45d2ddc56941a74f3aa4f821d49f50061d0b5f3bb7b370670c74fbf5cb32afd524192bf34187956d96899c91cbc3365b0d9fb154d95b7f266d454ca82bb15138f7cddf3465b20a7d94b777b2eaed67153d3d0210ac3e81408f16f1245061053b8d9da7377e4e4066fbc394d0742e89bdd1173edfafd4947eb12c3920db4868acfcb4e2f9660f612f5e7f96ea60374f7555abbcd4e83f2064d2512c65faa510f2c7b32dc49a9e0dd33f2f5dbfef9ee4972409f21a5d874fa6677b092f215c74008445b8a2920390bc25eef7bbf3868da98223af85abc01108d2c03da7559b564e36d4da904f5d7fbec9ab1d724a522603de1f16e519353f6561b9398ad75732c702b88cbea704b347a0e0068357374a81f25410e55486b927635a01c2f2d60bc4ebe619cf51950f9cc1fd645a216daa0232a45117fbb2b1949ce966114ccda8f5a33743b15b1f5b52de0d11fcb580c8c0fa03bdb3fef0079ff1c89aab4ca8287f71039c34bbc8594fe767cc41a38f2f26efb5ed9e51502d0517bbcca94742f88f56c82100780adc2c4784d5b422d50fb8a2c22bfe102491dd33a943a87ecc88edaa7d7e411d01d9c029672eb2f89f8fe89585a4a832b25568b0a455053f4605fff4d0bcd400a35d376f6dac137f54f7856a83b3de67c7662d01243d290801169e1511f5335a7b084c6a30a07b879b6184c3e8744e2be9b2abd5f9dc837e6f86933ce30598cd68270aa96b948af9572e1a55b2c04cdb905faf753461d5a00a4b282670b2b1982a7f34dc76472b21e5709c15e043d80fc734d3a37189f6cffd0b819a891204dfc335baf571e34b5ffcc2f52f16ca741e6dff12859d74ee505eadac14f77c87d1ecdb9cc1c4e210d45a5db3378c916fb0e0c71df2c37b3caa049a41d8b5048cf9ad2ea39306181162bfcd35f6a50a197cd5310332b9a81c44fc490f42076127fd5e9a607bf026d2c9a1da047589a10bbdcc4357d27d41131a356baf7b922dee3f49b3c45874a9b44c1b6468ddf3a5b25a25b6f3afd17ed6d20dee7f02342fc3832fc6b9712db71f2048baa87cce62a033a5eeea515ab9597d5e0ea1cb1e3c10c5c779c485ce36a655be507ac8ea560e3caf6b01612d131ebc5deed7dbd8edb784985f51652039b8b945bb80aafdd3f05565b9555f2a5c02ea5ecd509e6487602b9b254d99aa39fc8552904c68b20e6076d277b3a825f1260794871eb5594e5522d7df5d25f517521c5d922a6ca8414c1ca7fdd18f867f1c283197bc6d3bfaedf6f9d1e8bbc4c0534f833257a6aa19f82e83929e7b19b91fbba05f6193d0dfc0dc5b42d538aaf423b50d96a446a18b4e487cbfbbd22a1d4379c00ab934e948cc0d22ed4e51a5dc5b2041082ad76ad11c8d2bc07915b30a1012a7fed47e5467e8af87fb943c9cc641fd0521b475a5ca3ece7b967f4f8779a392cad5ad8e1758a6f256ec307faafd1a42a87f8d5ab558f1e8d50e06098011ccf6f838d1031aad78e872579c943f81301ecf7883a99ed5d62ddd46ee2365e5a45e4c103bbcb17546069d8f0007bb798b82c30784144718e0992da00142571d6420e924c4e597a3bd12f480fceee469c351aa6ea70b9d500621d2eca6de601175969ef1018cf3a0b408aa1a1556fcc8cd98d5da37f9d0201cd66741926e4c1f5dc9a5b0827d5d54625b44b3c6047bc62a0fab2d31982aa4403db0ba3646c234ba41d28c057f5ad0ae37b329a0824bb7109210242cabb4b1edf64ebf31dd451dc0c05b06d09158513ec437e1b85897d512bb1ec319057be85abc4adb6635cc76b4e5409939a2f58633caf5ee238d2eb2a8987e3ae3bd1f69d1485ee41d28086f5be532813b3f38c7380da2bdee744ee71d222069af96977dcdac2754a41319e11602b81840d9540114c1d2cfa3af4bee2724e0b2357643aac1ffdc66a97030da0f0d95497316335ce8aa2f07c97691742b32bc7e5d50eeabf1c09e73e490902776058015674cafff68c8c45b5d42e10f991799daeefb6c2293f585016c1d9da046e292b57c4c448b11155b15995b24bc4e7d204c2346a329caab22f9d341dd7e20a29f80871981e99de8faa413db822797e8789c8e78ea5beda56234a9e1bf0b730ad22fe4c17e6a74343c8bc8254180f72491840c0152707358b9fa5e019b402f255a272a82c2b08bbe703d77700fe00887431597144bf4d636d9de4309f07e262ecb2106de09559a82c6a697588a417e0d73b37168984ff92cdb1cb92c856d7f11b84c604a691428328b54eec90b77ac08685b247cc07e6b4903e837f960c6890dfb6d9bf91bc2b333f35524caa252b031b7a0e1cde702b98969945f87bf9beef56ee0bc8b02646c2eb07f3553741b4a9dd20218da5cee025ad9ad7b26f0a2c5b3d53514c4bdcc5718c34226d41cf440858c2ff8d54a117f096962cf153a0628fad2d9648b027fb61dbbef6f6de14c5acb1246f225da649f88fa48de6dafd6b5ecc6b615588e3cd16eb53bb00601585ee2e8cb3b032a5794dca4fa556de57f52996f80c1ad50cfc48b8e187131fa278a0d441c2641e6113348d6f8ddd9ab3e10f074504555a4189ff1475c2391ae464bf37f6ab2a88331329b13b112ee3aa06844a2cfc6040217f439fd86d3b0c71ef6bcb69db1e5606c076161f6c2cdb5efca8bf70d2f9ef899a6fb8e3d474e794e2d36be08f5ed2de12154452fe65ac9804c7c9baa212b7a51753bf02bf03004968fe4a5e3fec36e690217745dc8ce1a9522632448cdc30cafa56c95d7c57433e7dee704a05d75759a4aca748d782cadb2ed0838aad96a4fd608968c76af587e0b0665c7863df00a97d93beb26c0aec982227627f97e0419fc8e98e3cb8da3303a40c6b1cc6d9463672ce585d0de7a9725f35c404125b2865806352dbf13cdae19680151101182ef8eafc5783e551f26aebd9703c033ab39cbec5fa0b844710f380b16dd9fd1ec0abbc787cd7b09f0bf5392be3e120776705003db216fc3cb12d532bcaa0e1c91338c38131728666cd55f2ed0d2b66acfa10cd8c020589a10d284fb59c5acbb09ddbcf02aed75a098eb131d1d540e8e296aca764c59d9bb804156f3887b11512c285988c0a833ce96cadf2a631aa1902174953d0766811e74f6c91f24c28a61cef5b8aee7d1379cee544e07e4c5a892bb872356af0581b4cce0b21e2505f1b4d6bcbe226886d56f94dfb5c22acb11f43a58628a07df06bb7a20b8646449af240b598a6894bf668b3cf74e5c0daf93bae0d644454855f4f65b8347077a42fc2e8b848811b3af839f0b41d72e59a44f7e8f0d3897a5d97f6d19d1ff186ec9431a83bb0174bf43e3ec4a4fdee8f48e73a94bd3156584390e4311bffc1f9934feb0c1971532a206c7a85e32553117dfac8772fd770151358161cbccda1dc452d9ede99f4b68d6c2be071bc873588b3aad0b9b5b2c40a738dd7ddbe88e96da8ea2a28c79ce0ed9d8a9c1a54b035f0f47329834e73b657359f0c446d4f2153a78087e6617ab3e53f0f4ec6075e7361eb6cf6acdf67d3fe05245d5600df21dc935599d8c7701c605ac312273a7a877022561402597e3f3d3c21809ed33b8333839bdb8c0f40390cca7e55b6e517401dc09c72b796582b5eec645befdd4ad643420c8d1a1952a07ab2d8c6725b655cc34a426a16d3d982f618c06bbdacc8a8ad6d4d7c01137886cdfc3d1e26e1839de36c6bff5b02a3ed0a7e3c7c2167c7af3397dead7613f84aa989284b30301a5b94da1a0092204042582ac9a1185c411425345a9298af3e406576e375ca7ee16aa26c0c49b88fa6d139063da1f32e09902b49f27743f66b0bd5c5a5131e3861ca5c0ec98e09577e95d51190c9233916e866cfe5d56fda49d12b7dcbeeb9a2a4a8c2df4d27a1c31ba016ad41608fc74d59498faa370a0884c1b14060b1d920f5a333c829e9c6926b154521073afbff0f103d8a3af708fdfd38ceaa2e8a8ea8c364b286fd5075df3383baf8309544d8469f5af080dfd6dce756367c2a0cb7b5b65a9c22019bd825e6cc40f7e2e12a608dbbf89fde521f912e4d5797245840b5071dc03685d388c2928f1350d43d2ecedcc125d577c687aa35427fa93155b69f2bb347a28d1b3192d19c15ba1705c6e050fb7e2161f9879c44fa4b8c1de75c7c1b63e5186e72f6cb6e9abad18dba6c6ecb8ef173ed2f4c7e429bfb2b5000cd39b8d95fbec44d030bcaf6ef36cce17055a4206ec4ac1470cc50730235d5dd2a84b63dc56a2c6c9522abc858327fbbfc5acfd49b4cf25fe30cfc87788828955c46fcd25d9b5e1c381dfcb1a660eface51febdd8a928d54e9d05d6266d6d358344f3d548aadae25ab70e69137217e2efd256499eb027081e5fc7557181aac137a37121dcfbb86d4de0ce6ae913663279b95631b60b2f3f40d7cb9927d13affcf48e663edebdeac012c757724910bfa5ba08510190361eb28ba690f65145a3110db3916c9d16328a658dbe8df087507d2c266a1b3cab63f6af6e4a81eed1d79fccac32d59bc51a1d4b91c2fd3dfc6c1d42a5bd883b9cc851e376e469d3077a87f52333b0b16bf43d3ac3e4ebebb8dbd5083a7bae6a4156f97f1494713b9f67a87b046fc076cf8838545ebdfd59b90bbfa6e9803eee54a1f88f0947b202382f90cd75636805b380530930ad6027a326db92deb6a73934bf7e810651743ded1ebc48e963cdaca6d7be4731244a344b1ca762b240f7b619c01f776fa8b019f8f63189446b3bd0afb6f942979dfe81c30ba515d37d63b275206f74d1b477a0137273920b87baedfd982b6eadbb02e82c8e6f1ee677170cf2a853045f9a32cb444406e312ab68a91dbf789c97ceab2f44aa7389fa09335dce9ff410a4827e9dcf7ad656c75b90f78f81fd1ca5d3b55faa5ebd4cc608a4af0cb50502f03a51b62db2b5ffbe2e43dd5eb34fe0e4d9ea99d452acb196a4921614f92910dd7fa3be5c479658cda9bf06203a0d14743c67a23f5e938300e279d378e9b473cb03dc74779f59a3583f954ab6e36ebaa35a42a846b4293e65b0840bf9f3b051f8c28d7b36ff555691ee931edd1448ccb241d5b48955df128d30bbd5e41c8ae526a83889593823baa8e19c713865bf7542f26d6c7d30a680ea257ea92bfe13369d731c5719d102206219da00fbf543c3a3e2120f028e7c5bf7127dad15e7feb72ddac3002b8ce12318498aff8e3434667ce9280a4abf431a5af56090abe8f21aedf9b71b377ab14b5e9e9d16e4bb6ae2ebeb18cab1185a92cf4dd4ee4f56edee15965ced648653cdb4f827225c33ddb00e130955acc429110e4093f5792913d866bf79ebad097c8ac87ddeb1ced73025efc2137f31c60b9133d1d43d67f8b4f226e78fb4fd8f376445057b9a5dc3d2b535c137eadbcfd1ad48f233a9966fa8698199c8557e5de67a27930499ba7d8f14bb916967701e2a226ea7322a52c8d590e2cce94e25fde5e8bc5ab5358b01fb696370432cc0dd143a9fd9dea71821e9ce0db07768684db9dbf6df746e7cf7f0249358f7c14f746a26833353d6eb451e70b1218cb2c40ed9ef80cf0e47cb9dbcde0a44e25722005a2c242073480409e3c7650bf62e175f8276f40f7aa8d16f66fe26d66747a68d1c92bc412391b578d2f6842fab7d8fbba6cdbece6d94b774837acfc7c65358b516adbd21ad5aacc77b359104b18d1ddf01e689e2d1dbc365792ceaa6de1e46da128cee20776b49ef300220eb41590d224e1ded2a58b334bcde11322bf52c0da89d1354280900a0c00621098281b84b72f9db1336af5a11e62f8c4cc9cbe2c8b936d3c909ae2c10b3c9d4f4a22a5b4c024a299db36f77acc246aa34c4821d0b412ad0680d419f8d9ce1bd6cceaf8c0c3ed8caa85fc7e4870c1c511020f5848823418635a223e9e13167f6465de4bf92ac78b679db1c18963ac85c3dee761b02bd42e98f9ac3276d6b10ffe79a02b077881054e93b290bc1e63d11bc18e3df7f8d838347de0833ca05f41ea2fc53c6de9a186a575e4a0ae519367b9efa5e2eae0ffd0ebfdd795c864dadcb836f77da4626f4adead0e449c28e08c60cb6a01745bb09b4159cb91</script>
+</div>
+<script src="/miracle-qsh.com/lib/blog-encrypt.js"></script><link href="/miracle-qsh.com/css/blog-encrypt.css" rel="stylesheet" type="text/css">
       
       <!-- reward -->
       
@@ -157,14 +160,14 @@
     <a class="modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://miracle-qsh.github.io/2020/03/07/%E5%AE%B9%E6%96%A5%E5%8E%9F%E7%90%86/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://miracle-qsh.github.io/2020/03/09/socket/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/miracle-qsh.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/miracle-qsh.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
 
 
     </footer>
@@ -175,19 +178,10 @@
   
   <nav class="article-nav">
     
-      <a href="/miracle-qsh.com/2020/03/07/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            树状数组
-          
-        </div>
-      </a>
     
-    
-      <a href="/miracle-qsh.com/2020/03/07/%E7%B1%B3%E5%8B%92%E7%BD%97%E5%AE%BE%E7%B4%A0%E6%95%B0%E6%B5%8B%E8%AF%95/" class="article-nav-link">
+      <a href="/miracle-qsh.com/2020/03/09/SQL/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">米勒罗宾素数测试</div>
+        <div class="article-nav-title">SQL</div>
       </a>
     
   </nav>
