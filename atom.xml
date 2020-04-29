@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://miracle-qsh.github.io/"/>
-  <updated>2020-04-29T13:57:17.201Z</updated>
+  <updated>2020-04-29T14:17:19.540Z</updated>
   <id>http://miracle-qsh.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>消息队列的原理</title>
+    <link href="http://miracle-qsh.github.io/2020/04/29/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9A%84%E5%8E%9F%E7%90%86/"/>
+    <id>http://miracle-qsh.github.io/2020/04/29/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9A%84%E5%8E%9F%E7%90%86/</id>
+    <published>2020-04-29T14:08:28.518Z</published>
+    <updated>2020-04-29T14:17:19.540Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>转自cyc2018笔记——消息队列</p><a id="more"></a><h1 id="一、消息模型"><a href="#一、消息模型" class="headerlink" title="一、消息模型"></a><a href="https://cyc2018.github.io/CS-Notes/#/notes/消息队列?id=一、消息模型" target="_blank" rel="noopener">一、消息模型</a></h1><h2 id="点对点"><a href="#点对点" class="headerlink" title="点对点"></a><a href="https://cyc2018.github.io/CS-Notes/#/notes/消息队列?id=点对点" target="_blank" rel="noopener">点对点</a></h2><p>消息生产者向消息队列中发送了一个消息之后，只能被一个消费者消费一次。</p><p><img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/image-20191212011250613.png" alt="img"></p><h2 id="发布-订阅"><a href="#发布-订阅" class="headerlink" title="发布/订阅"></a><a href="https://cyc2018.github.io/CS-Notes/#/notes/消息队列?id=发布订阅" target="_blank" rel="noopener">发布/订阅</a></h2><p>消息生产者向频道发送一个消息之后，多个消费者可以从该频道订阅到这条消息并消费。</p><p><img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/image-20191212011410374.png" alt="img"></p><p>发布与订阅模式和观察者模式有以下不同：</p><ul><li>观察者模式中，观察者和主题都知道对方的存在；而在发布与订阅模式中，生产者与消费者不知道对方的存在，它们之间通过频道进行通信。</li><li>观察者模式是同步的，当事件触发时，主题会调用观察者的方法，然后等待方法返回；而发布与订阅模式是异步的，生产者向频道发送一个消息之后，就不需要关心消费者何时去订阅这个消息，可以立即返回。</li></ul><p><img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/image-20191212011747967.png" alt="img"></p><h1 id="二、使用场景"><a href="#二、使用场景" class="headerlink" title="二、使用场景"></a><a href="https://cyc2018.github.io/CS-Notes/#/notes/消息队列?id=二、使用场景" target="_blank" rel="noopener">二、使用场景</a></h1><h2 id="异步处理"><a href="#异步处理" class="headerlink" title="异步处理"></a><a href="https://cyc2018.github.io/CS-Notes/#/notes/消息队列?id=异步处理" target="_blank" rel="noopener">异步处理</a></h2><p>发送者将消息发送给消息队列之后，不需要同步等待消息接收者处理完毕，而是立即返回进行其它操作。消息接收者从消息队列中订阅消息之后异步处理。</p><p>例如在注册流程中通常需要发送验证邮件来确保注册用户身份的合法性，可以使用消息队列使发送验证邮件的操作异步处理，用户在填写完注册信息之后就可以完成注册，而将发送验证邮件这一消息发送到消息队列中。</p><p>只有在业务流程允许异步处理的情况下才能这么做，例如上面的注册流程中，如果要求用户对验证邮件进行点击之后才能完成注册的话，就不能再使用消息队列。</p><h2 id="流量削锋"><a href="#流量削锋" class="headerlink" title="流量削锋"></a><a href="https://cyc2018.github.io/CS-Notes/#/notes/消息队列?id=流量削锋" target="_blank" rel="noopener">流量削锋</a></h2><p>在高并发的场景下，如果短时间有大量的请求到达会压垮服务器。</p><p>可以将请求发送到消息队列中，服务器按照其处理能力从消息队列中订阅消息进行处理。</p><h2 id="应用解耦"><a href="#应用解耦" class="headerlink" title="应用解耦"></a><a href="https://cyc2018.github.io/CS-Notes/#/notes/消息队列?id=应用解耦" target="_blank" rel="noopener">应用解耦</a></h2><p>如果模块之间不直接进行调用，模块之间耦合度就会很低，那么修改一个模块或者新增一个模块对其它模块的影响会很小，从而实现可扩展性。</p><p>通过使用消息队列，一个模块只需要向消息队列中发送消息，其它模块可以选择性地从消息队列中订阅消息从而完成调用。</p><h1 id="三、可靠性"><a href="#三、可靠性" class="headerlink" title="三、可靠性"></a><a href="https://cyc2018.github.io/CS-Notes/#/notes/消息队列?id=三、可靠性" target="_blank" rel="noopener">三、可靠性</a></h1><h2 id="发送端的可靠性"><a href="#发送端的可靠性" class="headerlink" title="发送端的可靠性"></a><a href="https://cyc2018.github.io/CS-Notes/#/notes/消息队列?id=发送端的可靠性" target="_blank" rel="noopener">发送端的可靠性</a></h2><p>发送端完成操作后一定能将消息成功发送到消息队列中。</p><p>实现方法：在本地数据库建一张消息表，将消息数据与业务数据保存在同一数据库实例里，这样就可以利用本地数据库的事务机制。事务提交成功后，将消息表中的消息转移到消息队列中，若转移消息成功则删除消息表中的数据，否则继续重传。</p><h2 id="接收端的可靠性"><a href="#接收端的可靠性" class="headerlink" title="接收端的可靠性"></a><a href="https://cyc2018.github.io/CS-Notes/#/notes/消息队列?id=接收端的可靠性" target="_blank" rel="noopener">接收端的可靠性</a></h2><p>接收端能够从消息队列成功消费一次消息。</p><p>两种实现方法：</p><ul><li>保证接收端处理消息的业务逻辑具有幂等性：只要具有幂等性，那么消费多少次消息，最后处理的结果都是一样的。</li><li>保证消息具有唯一编号，并使用一张日志表来记录已经消费的消息编号。</li></ul><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><a href="https://cyc2018.github.io/CS-Notes/#/notes/消息队列?id=参考资料" target="_blank" rel="noopener">参考资料</a></h1><ul><li><a href="http://developers-club.com/posts/270339/" target="_blank" rel="noopener">Observer vs Pub-Sub</a></li><li><a href="https://blog.csdn.net/lizhitao/article/details/47723105" target="_blank" rel="noopener">消息队列中点对点与发布订阅区别</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;转自cyc2018笔记——消息队列&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="中间件" scheme="http://miracle-qsh.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+    
+      <category term="消息队列" scheme="http://miracle-qsh.github.io/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+      <category term="中间件" scheme="http://miracle-qsh.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring-IoC容器</title>
@@ -85,9 +110,9 @@
       <category term="数据库" scheme="http://miracle-qsh.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-      <category term="数据库" scheme="http://miracle-qsh.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
       <category term="Redis" scheme="http://miracle-qsh.github.io/tags/Redis/"/>
+    
+      <category term="数据库" scheme="http://miracle-qsh.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
   </entry>
   
@@ -460,29 +485,6 @@
       <category term="操作系统" scheme="http://miracle-qsh.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
       <category term="Linux" scheme="http://miracle-qsh.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据库系统原理</title>
-    <link href="http://miracle-qsh.github.io/2020/03/07/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/"/>
-    <id>http://miracle-qsh.github.io/2020/03/07/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/</id>
-    <published>2020-03-07T13:19:59.788Z</published>
-    <updated>2020-04-08T00:49:17.693Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>数据库系统原理的总结</p><a id="more"></a><h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务"></a>什么是事务</h3><p>事务指满足ACID特性的一组操作</p><h3 id="ACID是什么"><a href="#ACID是什么" class="headerlink" title="ACID是什么"></a>ACID是什么</h3><p>原子性、一致性、隔离性、持久性</p><h4 id="什么是原子性"><a href="#什么是原子性" class="headerlink" title="什么是原子性"></a>什么是原子性</h4><p>要么操作全部成功，要么全部失败</p><h4 id="原子性实现原理"><a href="#原子性实现原理" class="headerlink" title="原子性实现原理"></a>原子性实现原理</h4><p>innoDB实现回滚，靠的是undo log，通过undo log做与之前相反的操作实现回滚，保证原子性</p><h4 id="什么是一致性"><a href="#什么是一致性" class="headerlink" title="什么是一致性"></a>什么是一致性</h4><p>所有事务对同一数据的读取结果相同</p><h4 id="一致性实现原理"><a href="#一致性实现原理" class="headerlink" title="一致性实现原理"></a>一致性实现原理</h4><p>原子性、隔离性、持久性以及应用层的保障</p><h4 id="什么是隔离性"><a href="#什么是隔离性" class="headerlink" title="什么是隔离性"></a>什么是隔离性</h4><p>一个事务完成前，对其他事务不可见</p><h4 id="隔离性实现原理"><a href="#隔离性实现原理" class="headerlink" title="隔离性实现原理"></a>隔离性实现原理</h4><p>锁机制和MVCC</p><h4 id="什么是持久性"><a href="#什么是持久性" class="headerlink" title="什么是持久性"></a>什么是持久性</h4><p>一旦事务提交（完成），则所作修改永远保存</p><h4 id="持久性实现原理"><a href="#持久性实现原理" class="headerlink" title="持久性实现原理"></a>持久性实现原理</h4><p>innoDB通过缓存（Buffer Pool，定期刷盘）提高读写数据效率，但MySQL宕机时会导致数据丢失，于是引入redo log，当数据修改时，先在redo log中记录本次操作所有修改，之后修改Buffer Pool数据；事务提交时，会调用fsync接口对redo log进行刷盘，如果宕机，重启时可以读取redo log中的数据，对数据库进行恢复</p><h5 id="redo-log与bin-log的区别"><a href="#redo-log与bin-log的区别" class="headerlink" title="redo log与bin log的区别"></a>redo log与bin log的区别</h5><p>作用不同：redo log保证宕机也不会影响持久性，bin log保证服务器可以基于时间点恢复数据和主从复制</p><p>层次不同：redo log时innoDB存储引擎实现的，bin log时服务器层实现的</p><p>内容不同：redo log是物理日志，内容基于磁盘Page；bin log内容是二进制的</p><p>写入时机不同：bin log在事务提交时写入； redo log写入时间相对多元</p><h3 id="锁机制"><a href="#锁机制" class="headerlink" title="锁机制"></a>锁机制</h3><p>按照粒度，分为表锁和行锁</p><h4 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h4><p>X：写锁（互斥锁）、S：读锁（共享锁）</p><h4 id="意向锁"><a href="#意向锁" class="headerlink" title="意向锁"></a>意向锁</h4><p>一个事务在获得某个数据行对象的 S 锁之前，必须先获得表的 IS 锁或者更强的锁；</p><p>一个事务在获得某个数据行对象的 X 锁之前，必须先获得表的 IX 锁。</p><h4 id="封锁协议"><a href="#封锁协议" class="headerlink" title="封锁协议"></a>封锁协议</h4><h5 id="三级封锁协议"><a href="#三级封锁协议" class="headerlink" title="三级封锁协议"></a>三级封锁协议</h5><ul><li>一级封锁协议：事务 T 要修改数据 A 时必须加 X 锁，直到 T 结束才释放锁</li><li>二级封锁协议：在一级的基础上，要求读取数据 A 时必须加 S 锁，读取完马上释放 S 锁</li><li>三级封锁协议：在二级的基础上，要求读取数据 A 时必须加 S 锁，直到事务结束了才能释放 S 锁</li></ul><h5 id="两段锁协议"><a href="#两段锁协议" class="headerlink" title="两段锁协议"></a>两段锁协议</h5><p>加索和解锁分两个阶段进行</p><h4 id="隐式与显示锁定"><a href="#隐式与显示锁定" class="headerlink" title="隐式与显示锁定"></a>隐式与显示锁定</h4><p>MySQL 的 InnoDB 存储引擎采用两段锁协议，会根据隔离级别在需要的时候自动加锁，并且所有的锁都是在同一时刻被释放，这被称为隐式锁定。</p><p>InnoDB 也可以使用特定的语句进行显示锁定：</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ... <span class="keyword">lock</span> <span class="keyword">in</span> <span class="keyword">share</span> <span class="keyword">mode</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ... <span class="keyword">for</span> <span class="keyword">update</span>;</span></pre></td></tr></table></figure><h4 id="并发一致性问题"><a href="#并发一致性问题" class="headerlink" title="并发一致性问题"></a>并发一致性问题</h4><p>丢失修改、脏读、不可重复读、幻影读</p><h5 id="什么是丢失修改"><a href="#什么是丢失修改" class="headerlink" title="什么是丢失修改"></a>什么是丢失修改</h5><p>A和B对同一数据修改，A改完后B改，A修改被覆盖</p><h5 id="什么是脏读"><a href="#什么是脏读" class="headerlink" title="什么是脏读"></a>什么是脏读</h5><p>A修改数据，B读取该数据，随后A撤销本次修改</p><h5 id="什么是不可重复读"><a href="#什么是不可重复读" class="headerlink" title="什么是不可重复读"></a>什么是不可重复读</h5><p>A读数据，B对该数据进行修改，A再读取该数据</p><h5 id="什么是幻影读"><a href="#什么是幻影读" class="headerlink" title="什么是幻影读"></a>什么是幻影读</h5><p>A读某个范围数据，B在该范围内插入新数据，A再读该范围数据</p><h4 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h4><p>未提交读、提交读、可重复读、可串行化</p><h5 id="未提交读"><a href="#未提交读" class="headerlink" title="未提交读"></a>未提交读</h5><p>未提交的事务对其他事务也有可见性</p><h5 id="提交读"><a href="#提交读" class="headerlink" title="提交读"></a>提交读</h5><p>一个事务提交前对其他事务不可见</p><h5 id="可重复读"><a href="#可重复读" class="headerlink" title="可重复读"></a>可重复读</h5><p>保证在同一事务多次读取同一数据结果一致</p><h5 id="可串行化"><a href="#可串行化" class="headerlink" title="可串行化"></a>可串行化</h5><p>强制事务串行执行</p><h4 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h4><p>同一时刻不同事务读取的版本可能不同</p><h5 id="解决脏读"><a href="#解决脏读" class="headerlink" title="解决脏读"></a>解决脏读</h5><p><img src="https://img2018.cnblogs.com/blog/1174710/201901/1174710-20190128201139635-1779107964.png" alt="img"></p><h5 id="解决不可重复读"><a href="#解决不可重复读" class="headerlink" title="解决不可重复读"></a>解决不可重复读</h5><p><img src="https://img2018.cnblogs.com/blog/1174710/201901/1174710-20190128201149661-1275460669.png" alt="img"></p><h5 id="解决幻影读"><a href="#解决幻影读" class="headerlink" title="解决幻影读"></a>解决幻影读</h5><p><img src="https://img2018.cnblogs.com/blog/1174710/201901/1174710-20190128201206609-1998192060.png" alt="img"></p><h2 id="范式理论"><a href="#范式理论" class="headerlink" title="范式理论"></a>范式理论</h2><h3 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h3><p>A-&gt;B：B依赖A，A决定B</p><p>如果 {A1，A2，… ，An} 是关系的一个或多个属性的集合，该集合函数决定了关系的其它所有属性并且是最小的，那么该集合就称为键码</p><p>对于 A-&gt;B，如果能找到 A 的真子集 A’，使得 A’-&gt; B，那么 A-&gt;B 就是部分函数依赖，否则就是完全函数依赖</p><p>对于 A-&gt;B，B-&gt;C，则 A-&gt;C 是一个传递函数依赖</p><h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>以下的学生课程关系的函数依赖为 {Sno, Cname} -&gt; {Sname, Sdept, Mname, Grade}，键码为 {Sno, Cname}。也就是说，确定学生和课程之后，就能确定其它信息。</p><table><thead><tr><th>Sno</th><th>Sname</th><th>Sdept</th><th>Mname</th><th>Cname</th><th>Grade</th></tr></thead><tbody><tr><td>1</td><td>学生-1</td><td>学院-1</td><td>院长-1</td><td>课程-1</td><td>90</td></tr><tr><td>2</td><td>学生-2</td><td>学院-2</td><td>院长-2</td><td>课程-2</td><td>80</td></tr><tr><td>2</td><td>学生-2</td><td>学院-2</td><td>院长-2</td><td>课程-1</td><td>100</td></tr><tr><td>3</td><td>学生-3</td><td>学院-2</td><td>院长-2</td><td>课程-2</td><td>95</td></tr></tbody></table><p>不符合范式的关系，会产生很多异常，主要有以下四种异常：</p><ul><li>冗余数据：例如 <code>学生-2</code> 出现了两次。</li><li>修改异常：修改了一个记录中的信息，但是另一个记录中相同的信息却没有被修改。</li><li>删除异常：删除一个信息，那么也会丢失其它信息。例如删除了 <code>课程-1</code> 需要删除第一行和第三行，那么 <code>学生-1</code> 的信息就会丢失。</li><li>插入异常：例如想要插入一个学生的信息，如果这个学生还没选课，那么就无法插入。</li></ul><h3 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h3><h4 id="第一范式"><a href="#第一范式" class="headerlink" title="第一范式"></a>第一范式</h4><p>属性不可分</p><h4 id="第二范式"><a href="#第二范式" class="headerlink" title="第二范式"></a>第二范式</h4><p>每个非主属性完全函数依赖于键码。</p><p>可以通过分解来满足。</p><p><strong>分解前</strong></p><table><thead><tr><th>Sno</th><th>Sname</th><th>Sdept</th><th>Mname</th><th>Cname</th><th>Grade</th></tr></thead><tbody><tr><td>1</td><td>学生-1</td><td>学院-1</td><td>院长-1</td><td>课程-1</td><td>90</td></tr><tr><td>2</td><td>学生-2</td><td>学院-2</td><td>院长-2</td><td>课程-2</td><td>80</td></tr><tr><td>2</td><td>学生-2</td><td>学院-2</td><td>院长-2</td><td>课程-1</td><td>100</td></tr><tr><td>3</td><td>学生-3</td><td>学院-2</td><td>院长-2</td><td>课程-2</td><td>95</td></tr></tbody></table><p>以上学生课程关系中，{Sno, Cname} 为键码，有如下函数依赖：</p><ul><li>Sno -&gt; Sname, Sdept</li><li>Sdept -&gt; Mname</li><li>Sno, Cname-&gt; Grade</li></ul><p>Grade 完全函数依赖于键码，它没有任何冗余数据，每个学生的每门课都有特定的成绩。</p><p>Sname, Sdept 和 Mname 都部分依赖于键码，当一个学生选修了多门课时，这些数据就会出现多次，造成大量冗余数据。</p><p><strong>分解后</strong></p><p>关系-1</p><table><thead><tr><th>Sno</th><th>Sname</th><th>Sdept</th><th>Mname</th></tr></thead><tbody><tr><td>1</td><td>学生-1</td><td>学院-1</td><td>院长-1</td></tr><tr><td>2</td><td>学生-2</td><td>学院-2</td><td>院长-2</td></tr><tr><td>3</td><td>学生-3</td><td>学院-2</td><td>院长-2</td></tr></tbody></table><p>有以下函数依赖：</p><ul><li>Sno -&gt; Sname, Sdept</li><li>Sdept -&gt; Mname</li></ul><p>关系-2</p><table><thead><tr><th>Sno</th><th>Cname</th><th>Grade</th></tr></thead><tbody><tr><td>1</td><td>课程-1</td><td>90</td></tr><tr><td>2</td><td>课程-2</td><td>80</td></tr><tr><td>2</td><td>课程-1</td><td>100</td></tr><tr><td>3</td><td>课程-2</td><td>95</td></tr></tbody></table><p>有以下函数依赖：</p><ul><li>Sno, Cname -&gt; Grade</li></ul><h4 id="第三范式"><a href="#第三范式" class="headerlink" title="第三范式"></a>第三范式</h4><p>非主属性不传递函数依赖于键码。</p><p>上面的 关系-1 中存在以下传递函数依赖：</p><ul><li>Sno -&gt; Sdept -&gt; Mname</li></ul><p>可以进行以下分解：</p><p>关系-11</p><table><thead><tr><th>Sno</th><th>Sname</th><th>Sdept</th></tr></thead><tbody><tr><td>1</td><td>学生-1</td><td>学院-1</td></tr><tr><td>2</td><td>学生-2</td><td>学院-2</td></tr><tr><td>3</td><td>学生-3</td><td>学院-2</td></tr></tbody></table><p>关系-12</p><table><thead><tr><th>Sdept</th><th>Mname</th></tr></thead><tbody><tr><td>学院-1</td><td>院长-1</td></tr><tr><td>学院-2</td><td>院长-2</td></tr></tbody></table><h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p><a href="https://www.cnblogs.com/kismetv/p/10331633.html" target="_blank" rel="noopener">深入学习MySQL事务：ACID特性的实现原理</a></p><p><a href="https://cyc2018.github.io/CS-Notes/#/" target="_blank" rel="noopener">CS-Notes</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;数据库系统原理的总结&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="数据库" scheme="http://miracle-qsh.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-      <category term="数据库" scheme="http://miracle-qsh.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
   </entry>
   
